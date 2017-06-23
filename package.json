@@ -1,0 +1,30 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "Language Interpretation and Recognition Interface (LIRI)",
+  "main": "liri.js",
+  "scripts": {
+    "test": "node liri.js my-tweets"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philmao/liri-node-app.git"
+  },
+  "keywords": [
+    "liri",
+    "twitter",
+    "spotify",
+    "request"
+  ],
+  "author": "pmao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philmao/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/philmao/liri-node-app#readme",
+  "dependencies": {
+    "node-spotify-api": "^1.0.5",
+    "request": "^2.81.0",
+    "twitter": "^1.7.1"
+  }
+}
