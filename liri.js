@@ -6,8 +6,8 @@ var fs = require('fs');
 // Datetime module setup
 var dateTime = require('date-time');
 
-// Line reader module setup
-// var lineReader = require('line-reader');
+// Inquirer module setup
+var inquirer = require('inquirer');
 
 // Twitter setup
 //
@@ -40,18 +40,6 @@ var command = process.argv[2];
 
 var query = "";
 
-// for inputs having multiple words (with quotes)
-if(process.argv[3] != undefined) {
-	query = process.argv[3];
-}
-// for inputs having multiple words (no quotes)
-if(process.argv[4] != undefined) {
-	for(var i = 4; i < process.argv.length; i++) {
-		query += ' ' + process.argv[i];
-	}
-}
-console.log(query);
-
 var logFile = function(text) {
 
 	var d = dateTime();
@@ -68,7 +56,6 @@ var logFile = function(text) {
 }
 
 var doAction = function(command, query) {
-
 	switch (command) {
 		case 'my-tweets':
 			// console.log("my-tweets");
@@ -92,7 +79,7 @@ var doAction = function(command, query) {
 			break;
 		
 		case 'spotify-this-song':
-			console.log("spotify-this-song");
+			// console.log("spotify-this-song");
 
 			if(query === "") {
 				query = "The Sign";
@@ -120,7 +107,7 @@ var doAction = function(command, query) {
 			break;
 
 		case 'movie-this':
-			console.log("movie-this");
+			// console.log("movie-this");
 
 			// for inputs having multiple words (with quotes)
 			if(query === "") {
@@ -154,7 +141,7 @@ var doAction = function(command, query) {
 			break;
 
 		case 'do-what-it-says':
-			console.log("do-what-it-says");
+			// console.log("do-what-it-says");
 			logFile(command);
 
 			fs.readFile("random.txt", "utf8", function(error, data) {
@@ -172,20 +159,6 @@ var doAction = function(command, query) {
 				}
 			});
 
-			// lineReader.eachLine('random.txt', function(line, last) {
-			// 	console.log(line);
-			// 	var array = line.split(",");
-			// 	console.log(array);
-
-			// 	if(array[0] === 'my-tweets') {
-			// 		doAction(array[0], "");
-			// 	}
-			// 	else {
-			// 		var input = array[1].replace(/^"(.+(?="$))"$/, '$1');
-			// 		console.log(input);
-			// 		doAction(array[0], input);	
-			// 	}
-			// });
 			break;
 
 		default:
@@ -194,4 +167,71 @@ var doAction = function(command, query) {
 	}
 }
 
-doAction(command, query);
+if(command != undefined) {
+
+	// for cmd line inputs having multiple words (with quotes)
+	if(process.argv[3] != undefined) {
+		query = process.argv[3];
+	}
+	// for cmd line inputs having multiple words (no quotes)
+	if(process.argv[4] != undefined) {
+		for(var i = 4; i < process.argv.length; i++) {
+			query += ' ' + process.argv[i];
+		}
+	}
+	console.log("Command: " + command + " Query: " + query);
+	doAction(command, query);
+}
+else {
+	// prompt for command/query
+	inquirer 
+		.prompt([
+			{
+				type: "list",
+				name: "command",
+				message: "What command?",
+				choices: ["my-tweets", "spotify-this-song", "movie-this", "do-what-it-says"]
+			}
+		])
+		.then(function(inquirerResponse) {
+			// console.log(inquirerResponse);
+			switch (inquirerResponse.command) {
+				case "spotify-this-song":
+					inquirer 
+						.prompt([
+							{
+								name: "song",
+								message: "Enter song title?"
+							}
+						])
+						.then(function(response) {
+							query = response.song;
+							console.log("Command: " + inquirerResponse.command + " Query: " + query);
+							doAction(inquirerResponse.command, query);
+						});
+					break;
+				case "movie-this": 
+					inquirer 
+						.prompt([
+							{
+								name: "movie",
+								message: "Enter movie title?"
+							}
+						])
+						.then (function(response) {
+							query = response.movie;
+							console.log("Command: " + inquirerResponse.command + " Query: " + query);
+							doAction(inquirerResponse.command, query);
+						});
+					break;
+				default:
+					query = "";
+					console.log("Command: " + inquirerResponse.command + " Query: " + query);
+					doAction(inquirerResponse.command, query);	
+			}
+		});
+	}
+
+
+
+
