@@ -1,7 +1,17 @@
-6/22/2017, 17:32:16: my-tweets
-6/22/2017, 17:32:21: spotify-this-song "The Sign"
-6/22/2017, 17:32:27: spotify-this-song "The Sign"
-6/22/2017, 17:32:32: movie-this "Mr Nobody"
-6/22/2017, 17:32:36: movie-this "Rogue One"
-6/22/2017, 17:32:42: do-what-it-says
-6/22/2017, 17:32:42: spotify-this-song "I Want It That Way"
+2017-06-22 18:22:38: do-what-it-says
+2017-06-22 18:22:38: spotify-this-song "I Want It That Way"
+2017-06-22 18:22:55: my-tweets
+2017-06-22 18:23:04: spotify-this-song "The Sign"
+2017-06-22 18:23:14: spotify-this-song "The Sign"
+2017-06-22 18:23:25: movie-this "Mr Nobody"
+2017-06-22 18:23:32: movie-this "Rogue One"
+2017-06-22 18:23:37: do-what-it-says
+2017-06-22 18:23:37: spotify-this-song "I Want It That Way"
+2017-06-22 18:25:32: do-what-it-says
+2017-06-22 18:25:32: my-tweets
+2017-06-22 18:26:50: do-what-it-says
+2017-06-22 18:26:50: movie-this "Rogue One"
+2017-06-22 18:30:53: do-what-it-says
+2017-06-22 18:30:53: movie-this "Rogue One"
+2017-06-22 18:31:47: do-what-it-says
+2017-06-22 18:31:47: spotify-this-song "I Want It That Way"

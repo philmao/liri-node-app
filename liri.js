@@ -3,6 +3,12 @@ var keys = require("./keys.js");
 // FS setup
 var fs = require('fs');
 
+// Datetime module setup
+var dateTime = require('date-time');
+
+// Line reader module setup
+// var lineReader = require('line-reader');
+
 // Twitter setup
 //
 var Twitter = require('twitter');
@@ -16,7 +22,7 @@ var client = new Twitter({
 
 var screen_name = "mao_philip";
 
-// Spotify setup
+// Spotify module setup
 // 
 var Spotify = require('node-spotify-api');
 
@@ -25,7 +31,7 @@ var spotify = new Spotify({
   secret: keys.spotifyKeys.secret
 });
 
-// Request setup
+// Request module setup
 //
 var request = require("request");
 
@@ -48,8 +54,8 @@ console.log(query);
 
 var logFile = function(text) {
 
-	var d = new Date();
-	var newText = d.toLocaleString('en-US', { hour12: false }) + ": " + text + "\n";
+	var d = dateTime();
+	var newText = d + ": " + text + "\n";
 
 	fs.appendFile("log.txt", newText, function(err) {
 
@@ -149,17 +155,37 @@ var doAction = function(command, query) {
 
 		case 'do-what-it-says':
 			console.log("do-what-it-says");
+			logFile(command);
 
 			fs.readFile("random.txt", "utf8", function(error, data) {
-				console.log(data);
+				// console.log(data);
 				var array = data.split(",");
-				console.log(array);
+				// console.log(array);
 
-				var input = array[1].replace(/^"(.+(?="$))"$/, '$1');
-				console.log(input);
-				doAction(array[0], input);
+				if(array[0] === 'my-tweets') {
+					doAction(array[0], "");
+				}
+				else {
+					var input = array[1].replace(/^"(.+(?="$))"$/, '$1');
+					// console.log(input);
+					doAction(array[0], input);	
+				}
 			});
-			logFile(command);
+
+			// lineReader.eachLine('random.txt', function(line, last) {
+			// 	console.log(line);
+			// 	var array = line.split(",");
+			// 	console.log(array);
+
+			// 	if(array[0] === 'my-tweets') {
+			// 		doAction(array[0], "");
+			// 	}
+			// 	else {
+			// 		var input = array[1].replace(/^"(.+(?="$))"$/, '$1');
+			// 		console.log(input);
+			// 		doAction(array[0], input);	
+			// 	}
+			// });
 			break;
 
 		default:
